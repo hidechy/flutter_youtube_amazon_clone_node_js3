@@ -8,6 +8,8 @@ import '../../common/custom_button.dart';
 import '../../common/custom_textfield.dart';
 import '../../constants/global_variables.dart';
 import '../../constants/utils.dart';
+import '../../extensions/extensions.dart';
+import 'admin_service.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -27,7 +29,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
   String category = 'Mobiles';
   List<File> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
+  final AdminService adminService = AdminService();
 
+  ///
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminService.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: descriptionController.text,
+        price: priceController.text.toDouble(),
+        quantity: quantityController.text.toDouble(),
+        category: category,
+        images: images,
+      );
+    }
+  }
+
+  ///
   @override
   void dispose() {
     super.dispose();
@@ -44,8 +63,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
     final res = await pickImages();
 
     setState(() {
-      print(res);
-
       images = res;
     });
   }
@@ -169,7 +186,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   const SizedBox(height: 10),
                   CustomButton(
                     text: 'Sell',
-                    onTap: () {},
+                    onTap: sellProduct,
                   ),
                 ],
               ),
