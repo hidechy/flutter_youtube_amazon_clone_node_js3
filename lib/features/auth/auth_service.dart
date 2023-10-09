@@ -13,6 +13,7 @@ import '../../constants/global_variables.dart';
 import '../../constants/utils.dart';
 import '../../models/user.dart';
 import '../../providers/user_provider.dart';
+import '../admin/admin_screen.dart';
 
 class AuthService {
   ///
@@ -73,7 +74,11 @@ class AuthService {
 
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
 
-          await Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
+          await Navigator.pushNamedAndRemoveUntil(
+            context,
+            (jsonDecode(res.body)['type'] == 'user') ? BottomBar.routeName : AdminScreen.routeName,
+            (route) => false,
+          );
         },
       );
     } catch (e) {
