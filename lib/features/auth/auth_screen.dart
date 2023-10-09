@@ -49,6 +49,33 @@ class _AuthScreenState extends State<AuthScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  children: [
+                    //=========================
+                    ElevatedButton(
+                      onPressed: () {
+                        _emailController.text = 'hide.toyoda@gmail.com';
+                        _passwordController.text = 'hidechy4819';
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                      child: const Text('dummy'),
+                    ),
+                    //=========================
+
+                    const SizedBox(width: 20),
+
+                    //=========================
+                    ElevatedButton(
+                      onPressed: () {
+                        _emailController.text = 'admin@gmail.com';
+                        _passwordController.text = 'hidechy4819';
+                      },
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                      child: const Text('admin'),
+                    ),
+                    //=========================
+                  ],
+                ),
                 const Text('Welcome', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500)),
                 ListTile(
                   tileColor:
@@ -121,7 +148,11 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(height: 10),
                           CustomButton(
                             text: 'Sign In',
-                            onTap: () {},
+                            onTap: () {
+                              if (_signInFormKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            },
                           ),
                         ],
                       ),
@@ -143,6 +174,15 @@ class _AuthScreenState extends State<AuthScreen> {
       email: _emailController.text,
       password: _passwordController.text,
       name: _nameController.text,
+    );
+  }
+
+  ///
+  void signInUser() {
+    authService.signInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
     );
   }
 }
