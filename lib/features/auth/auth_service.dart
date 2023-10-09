@@ -7,10 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../common/bottom_bar.dart';
 import '../../constants/error_handling.dart';
 import '../../constants/global_variables.dart';
 import '../../constants/utils.dart';
-import '../../features/home/home_screen.dart';
 import '../../models/user.dart';
 import '../../providers/user_provider.dart';
 
@@ -73,7 +73,7 @@ class AuthService {
 
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
 
-          await Navigator.pushNamedAndRemoveUntil(context, HomeScreen.routeName, (route) => false);
+          await Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
         },
       );
     } catch (e) {
