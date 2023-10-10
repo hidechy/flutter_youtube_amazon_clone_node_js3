@@ -1,5 +1,6 @@
-// ignore_for_file: use_build_context_synchronously, avoid_catches_without_on_clauses
+// ignore_for_file: use_build_context_synchronously, avoid_catches_without_on_clauses, avoid_dynamic_calls
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -14,6 +15,7 @@ import '../../models/product.dart';
 import '../../providers/user_provider.dart';
 
 class AdminService {
+  ///
   Future<void> sellProduct({
     required BuildContext context,
     required String name,
@@ -66,5 +68,36 @@ class AdminService {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  ///
+  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    final productList = <Product>[];
+
+    try {
+      final res = await http.get(
+        Uri.parse('$uri/admin/get-products'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (var i = 0; i < jsonDecode(res.body).length; i++) {
+            productList.add(Product.fromJson(jsonEncode(jsonDecode(res.body)[i])));
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+
+    return productList;
   }
 }
