@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'common/bottom_bar.dart';
 
+import 'features/address/address_screen.dart';
 import 'features/admin/add_product_screen.dart';
 import 'features/admin/admin_screen.dart';
 import 'features/auth/auth_screen.dart';
@@ -67,6 +68,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => ProductDetailScreen(product: product),
+      );
+
+    case AddressScreen.routeName:
+      final totalAmount = routeSettings.arguments as String;
+
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => AddressScreen(totalAmount: totalAmount),
       );
 
     default:

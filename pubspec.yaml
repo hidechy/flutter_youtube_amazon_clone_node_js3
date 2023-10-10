@@ -21,7 +21,8 @@ dependencies:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
   http: ^1.1.0
-  intl: ^0.18.1
+  intl: 0.18.0
+  pay: ^1.1.2
   provider: ^6.0.5
   shared_preferences: ^2.2.1
 
