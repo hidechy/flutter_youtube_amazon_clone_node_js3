@@ -1,6 +1,8 @@
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, inference_failure_on_untyped_parameter
 
 import 'dart:convert';
+
+import 'rating.dart';
 
 class Product {
   Product({
@@ -11,6 +13,7 @@ class Product {
     required this.category,
     required this.price,
     this.id,
+    this.rating,
   });
 
   factory Product.fromMap(Map<String, dynamic> map) {
@@ -22,6 +25,9 @@ class Product {
       category: map['category'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
       id: map['_id'],
+      rating: map['ratings'] != null
+          ? List<Rating>.from(map['ratings']?.map((x) => Rating.fromMap(x as Map<String, dynamic>)))
+          : null,
     );
   }
 
@@ -33,6 +39,7 @@ class Product {
   final String category;
   final double price;
   final String? id;
+  final List<Rating>? rating;
 
   Map<String, dynamic> toMap() {
     return {
@@ -43,6 +50,7 @@ class Product {
       'category': category,
       'price': price,
       'id': id,
+      'rating': rating,
     };
   }
 

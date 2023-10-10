@@ -2,15 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-// import 'package:provider/provider.dart';
-//
-//
+import 'package:provider/provider.dart';
 
 import '../../common/custom_button.dart';
 import '../../common/stars.dart';
 import '../../constants/global_variables.dart';
 import '../../models/product.dart';
+import '../../providers/user_provider.dart';
 import '../search/search_screen.dart';
 import 'product_detail_service.dart';
 
@@ -35,28 +33,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     super.initState();
 
-    //
-    // double totalRating = 0;
-    //
-    //
-    //
+    var totalRating = 0.0;
 
-    // for (int i = 0; i < widget.product.rating!.length; i++) {
-    //   totalRating += widget.product.rating![i].rating;
-    //   if (widget.product.rating![i].userId == Provider.of<UserProvider>(context, listen: false).user.id) {
-    //     myRating = widget.product.rating![i].rating;
-    //   }
-    // }
-    //
-    //
-    //
+    final userId = Provider.of<UserProvider>(context, listen: false).user.id;
 
-    // if (totalRating != 0) {
-    //   avgRating = totalRating / widget.product.rating!.length;
-    // }
-    //
-    //
-    //
+    for (var i = 0; i < widget.product.rating!.length; i++) {
+      totalRating += widget.product.rating![i].rating;
+
+      if (widget.product.rating![i].userId == userId) {
+        myRating = widget.product.rating![i].rating;
+      }
+    }
+
+    if (totalRating != 0) {
+      avgRating = totalRating / widget.product.rating!.length;
+    }
   }
 
   ///
