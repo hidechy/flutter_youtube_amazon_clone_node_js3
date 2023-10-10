@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/global_variables.dart';
 import '../features/account/account_screen.dart';
+import '../features/cart/cart_screen.dart';
 import '../features/home/home_screen.dart';
 import '../providers/user_provider.dart';
 
@@ -24,7 +25,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeScreen(),
     const AccountScreen(),
-    const Center(child: Text('Cart Page')),
+    const CartScreen(),
   ];
 
   ///
