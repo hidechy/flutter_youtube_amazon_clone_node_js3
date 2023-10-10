@@ -122,9 +122,7 @@ class AdminService {
       httpErrorHandle(
         response: res,
         context: context,
-        onSuccess: () {
-          onSuccess();
-        },
+        onSuccess: () => onSuccess(),
       );
     } catch (e) {
       showSnackBar(context, e.toString());
