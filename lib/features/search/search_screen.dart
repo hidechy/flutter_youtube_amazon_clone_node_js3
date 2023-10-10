@@ -4,6 +4,7 @@ import '../../common/loader.dart';
 import '../../constants/global_variables.dart';
 import '../../models/product.dart';
 import '../home/address_box.dart';
+import '../product_detail/product_detail_screen.dart';
 import 'search_service.dart';
 import 'searched_product.dart';
 
@@ -111,15 +112,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemCount: products!.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                        onTap: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   ProductDetailScreen.routeName,
-                          //   arguments: products![index],
-                          // );
-                          //
-                          //
-                        },
+                        onTap: () =>
+                            Navigator.pushNamed(context, ProductDetailScreen.routeName, arguments: products![index]),
                         child: SearchedProduct(product: products![index]),
                       );
                     },

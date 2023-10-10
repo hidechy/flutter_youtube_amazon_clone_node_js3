@@ -200,10 +200,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 //
                 //
 
-                // color: const Color.fromRGBO(254, 216, 19, 1),
-                //
-                //
-                //
+                color: Colors.blueAccent,
               ),
             ),
             const SizedBox(height: 10),
