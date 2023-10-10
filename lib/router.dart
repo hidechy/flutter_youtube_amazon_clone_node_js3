@@ -1,3 +1,5 @@
+// ignore_for_file: cast_nullable_to_non_nullable
+
 import 'package:flutter/material.dart';
 
 import 'common/bottom_bar.dart';
@@ -5,6 +7,7 @@ import 'common/bottom_bar.dart';
 import 'features/admin/add_product_screen.dart';
 import 'features/admin/admin_screen.dart';
 import 'features/auth/auth_screen.dart';
+import 'features/home/category_deals_screen.dart';
 import 'features/home/home_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -37,6 +40,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AddProductScreen(),
+      );
+
+    case CategoryDealsScreen.routeName:
+      final category = routeSettings.arguments as String;
+
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => CategoryDealsScreen(category: category),
       );
 
     default:
