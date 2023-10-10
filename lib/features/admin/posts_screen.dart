@@ -31,16 +31,17 @@ class _PostsScreenState extends State<PostsScreen> {
     setState(() {});
   }
 
-  // void deleteProduct(Product product, int index) {
-  //   adminServices.deleteProduct(
-  //     context: context,
-  //     product: product,
-  //     onSuccess: () {
-  //       products!.removeAt(index);
-  //       setState(() {});
-  //     },
-  //   );
-  // }
+  ///
+  void deleteProduct(Product product, int index) {
+    adminService.deleteProduct(
+      context: context,
+      product: product,
+      onSuccess: () {
+        products!.removeAt(index);
+        setState(() {});
+      },
+    );
+  }
 
   ///
   void navigateToAddProduct() => Navigator.pushNamed(context, AddProductScreen.routeName);
@@ -69,8 +70,7 @@ class _PostsScreenState extends State<PostsScreen> {
                             child: Text(productData.name, overflow: TextOverflow.ellipsis, maxLines: 2),
                           ),
                           IconButton(
-                            onPressed: () {},
-//                            onPressed: () => deleteProduct(productData, index),
+                            onPressed: () => deleteProduct(productData, index),
                             icon: const Icon(Icons.delete_outline),
                           ),
                         ],
