@@ -37,8 +37,6 @@ class SearchService {
           }
         },
       );
-
-      print(productList);
     } catch (e) {
       showSnackBar(context, e.toString());
     }

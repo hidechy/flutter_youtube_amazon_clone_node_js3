@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-// import '../../common/loader.dart';
-// import '../../constants/global_variables.dart';
-//
-// import '../home/address_box.dart';
-
+import '../../common/loader.dart';
+import '../../constants/global_variables.dart';
 import '../../models/product.dart';
+import '../home/address_box.dart';
 import 'search_service.dart';
+import 'searched_product.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, required this.searchQuery});
@@ -45,20 +44,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text(widget.searchQuery),
-            if (products != null) Text(products!.length.toString()),
-          ],
-        ),
-      ),
-    );
-
-    /*
-
-
-    return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
@@ -83,39 +68,23 @@ class _SearchScreenState extends State<SearchScreen> {
                         prefixIcon: InkWell(
                           onTap: () {},
                           child: const Padding(
-                            padding: EdgeInsets.only(
-                              left: 6,
-                            ),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 23,
-                            ),
+                            padding: EdgeInsets.only(left: 6),
+                            child: Icon(Icons.search, color: Colors.black, size: 23),
                           ),
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding: const EdgeInsets.only(top: 10),
                         border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
                           borderSide: BorderSide.none,
                         ),
                         enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.black38,
-                            width: 1,
-                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
+                          borderSide: BorderSide(color: Colors.black38),
                         ),
                         hintText: 'Search Amazon.in',
-                        hintStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                        ),
+                        hintStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
                       ),
                     ),
                   ),
@@ -151,11 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           //
                           //
                         },
-                        // child: SearchedProduct(
-                        //   product: products![index],
-                        // ),
-                        //
-                        //
+                        child: SearchedProduct(product: products![index]),
                       );
                     },
                   ),
@@ -163,11 +128,5 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
     );
-
-
-
-
-
-    */
   }
 }
