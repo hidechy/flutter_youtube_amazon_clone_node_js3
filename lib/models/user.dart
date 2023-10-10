@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_untyped_parameter, avoid_dynamic_calls
+
 import 'dart:convert';
 
 class User {
@@ -9,6 +11,7 @@ class User {
     required this.address,
     required this.type,
     required this.token,
+    required this.cart,
   });
 
   factory User.fromMap(Map<String, dynamic> map) {
@@ -20,6 +23,9 @@ class User {
       address: map['address'] ?? '',
       type: map['type'] ?? '',
       token: map['token'] ?? '',
+      cart: List<Map<String, dynamic>>.from(
+        map['cart']?.map((x) => Map<String, dynamic>.from(x as Map<String, dynamic>)),
+      ),
     );
   }
 
@@ -31,6 +37,7 @@ class User {
   final String address;
   final String type;
   final String token;
+  final List<dynamic> cart;
 
   Map<String, dynamic> toMap() {
     return {
@@ -41,6 +48,7 @@ class User {
       'address': address,
       'type': type,
       'token': token,
+      'cart': cart,
     };
   }
 
@@ -54,6 +62,7 @@ class User {
     String? address,
     String? type,
     String? token,
+    List<dynamic>? cart,
   }) {
     return User(
       id: id ?? this.id,
@@ -63,6 +72,7 @@ class User {
       address: address ?? this.address,
       type: type ?? this.type,
       token: token ?? this.token,
+      cart: cart ?? this.cart,
     );
   }
 }

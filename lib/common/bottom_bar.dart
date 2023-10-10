@@ -1,9 +1,11 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../constants/global_variables.dart';
+import '../constants/global_variables.dart';
 import '../features/account/account_screen.dart';
 import '../features/home/home_screen.dart';
+import '../providers/user_provider.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -35,6 +37,8 @@ class _BottomBarState extends State<BottomBar> {
   ///
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
+
     return Scaffold(
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -51,7 +55,7 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: (_page == 0) ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
+                    color: _page == 0 ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
                 ),
@@ -66,7 +70,7 @@ class _BottomBarState extends State<BottomBar> {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: (_page == 1) ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
+                    color: _page == 1 ? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
                     width: bottomBarBorderWidth,
                   ),
                 ),
@@ -86,14 +90,10 @@ class _BottomBarState extends State<BottomBar> {
                   ),
                 ),
               ),
-              child: const badges.Badge(
-                badgeContent: Text('10'),
-                badgeStyle: badges.BadgeStyle(
-                  badgeColor: Colors.white,
-                ),
-                child: Icon(
-                  Icons.shopping_cart_outlined,
-                ),
+              child: badges.Badge(
+                badgeContent: Text(userCartLen.toString()),
+                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.white),
+                child: const Icon(Icons.shopping_cart_outlined),
               ),
             ),
             label: '',

@@ -54,15 +54,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void navigateToSearchScreen(String query) => Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
 
   ///
-  // void addToCart() {
-  //   productDetailsServices.addToCart(
-  //     context: context,
-  //     product: widget.product,
-  //   );
-  // }
-  //
-  //
-  //
+  void addToCart() => productDetailsService.addToCart(context: context, product: widget.product);
 
   ///
   @override
@@ -181,14 +173,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(10),
               child: CustomButton(
                 text: 'Add to Cart',
-
-                onTap: () {},
-                // onTap: addToCart,
-                //
-                //
-                //
-                //
-
+                onTap: addToCart,
                 color: Colors.blueAccent,
               ),
             ),
