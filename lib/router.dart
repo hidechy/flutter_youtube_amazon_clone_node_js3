@@ -9,6 +9,7 @@ import 'features/admin/admin_screen.dart';
 import 'features/auth/auth_screen.dart';
 import 'features/home/category_deals_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/search/search_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -48,6 +49,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => CategoryDealsScreen(category: category),
+      );
+
+    case SearchScreen.routeName:
+      final searchQuery = routeSettings.arguments as String;
+
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => SearchScreen(searchQuery: searchQuery),
       );
 
     default:
