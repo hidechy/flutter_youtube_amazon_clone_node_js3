@@ -8,6 +8,7 @@ import '../../constants/global_variables.dart';
 import '../../providers/user_provider.dart';
 import '../home/address_box.dart';
 import '../search/search_screen.dart';
+import 'cart_product.dart';
 import 'cart_subtotal.dart';
 
 class CartScreen extends StatefulWidget {
@@ -112,14 +113,7 @@ class _CartScreenState extends State<CartScreen> {
             ListView.builder(
               itemCount: user.cart.length,
               shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Container();
-
-                // return CartProduct(index: index);
-                //
-                //
-                //
-              },
+              itemBuilder: (context, index) => CartProduct(index: index),
             ),
           ],
         ),
