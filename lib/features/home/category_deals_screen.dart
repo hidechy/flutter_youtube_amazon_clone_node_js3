@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../common/loader.dart';
 import '../../constants/global_variables.dart';
 import '../../models/product.dart';
+import '../product_detail/product_detail_screen.dart';
 import 'home_service.dart';
 
 class CategoryDealsScreen extends StatefulWidget {
@@ -74,15 +75,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                     itemBuilder: (context, index) {
                       final product = productList![index];
                       return GestureDetector(
-                        onTap: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   ProductDetailScreen.routeName,
-                          //   arguments: product,
-                          // );
-                          //
-                          //
-                        },
+                        onTap: () => Navigator.pushNamed(context, ProductDetailScreen.routeName, arguments: product),
                         child: Column(
                           children: [
                             SizedBox(
