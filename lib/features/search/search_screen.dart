@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // import '../home/address_box.dart';
 
 import '../../models/product.dart';
+import 'search_service.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, required this.searchQuery});
@@ -21,26 +22,21 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List<Product>? products;
 
-  // final SearchServices searchServices = SearchServices();
-  //
-  //
-  //
+  final SearchService searchService = SearchService();
 
+  ///
   @override
   void initState() {
     super.initState();
-    // fetchSearchedProduct();
-    //
-    //
-    //
+    fetchSearchedProduct();
   }
 
-  // fetchSearchedProduct() async {
-  //   products = await searchServices.fetchSearchedProduct(context: context, searchQuery: widget.searchQuery);
-  //   setState(() {});
-  // }
-  //
-  //
+  ///
+  Future<void> fetchSearchedProduct() async {
+    products = await searchService.fetchSearchedProduct(context: context, searchQuery: widget.searchQuery);
+
+    setState(() {});
+  }
 
   ///
   void navigateToSearchScreen(String query) => Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
@@ -53,6 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           children: [
             Text(widget.searchQuery),
+            if (products != null) Text(products!.length.toString()),
           ],
         ),
       ),
