@@ -12,6 +12,7 @@ import '../../common/stars.dart';
 import '../../constants/global_variables.dart';
 import '../../models/product.dart';
 import '../search/search_screen.dart';
+import 'product_detail_service.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key, required this.product});
@@ -25,10 +26,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  // final ProductDetailsServices productDetailsServices = ProductDetailsServices();
-  //
-  //
-  //
+  final ProductDetailsService productDetailsService = ProductDetailsService();
 
   double avgRating = 0;
   double myRating = 0;
@@ -224,19 +222,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 Icons.star,
                 color: GlobalVariables.secondaryColor,
               ),
-
-              onRatingUpdate: (rating) {},
-
-              // onRatingUpdate: (rating) {
-              //   productDetailsServices.rateProduct(
-              //     context: context,
-              //     product: widget.product,
-              //     rating: rating,
-              //   );
-              // },
-              //
-              //
-              //
+              onRatingUpdate: (rating) =>
+                  productDetailsService.rateProduct(context: context, product: widget.product, rating: rating),
             )
           ],
         ),
