@@ -36,16 +36,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   ///
   void changeOrderStatus(int status) {
-    // adminService.changeOrderStatus(
-    //   context: context,
-    //   status: status + 1,
-    //   order: widget.order,
-    //   onSuccess: () {
-    //     setState(() {
-    //       currentStep += 1;
-    //     });
-    //   },
-    // );
+    adminService.changeOrderStatus(
+      context: context,
+      status: status + 1,
+      order: widget.order,
+      onSuccess: () => setState(() => currentStep += 1),
+    );
   }
 
   @override
