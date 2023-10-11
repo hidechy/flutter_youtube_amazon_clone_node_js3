@@ -5,12 +5,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/error_handling.dart';
 import '../../constants/global_variables.dart';
 import '../../constants/utils.dart';
 import '../../models/order.dart';
 import '../../providers/user_provider.dart';
+import '../auth/auth_screen.dart';
 
 class AccountService {
   ///
@@ -41,13 +43,15 @@ class AccountService {
   }
 
   ///
-// Future<void> logOut(BuildContext context) async {
-//   try {
-//     final sharedPreferences = await SharedPreferences.getInstance();
-//     await sharedPreferences.setString('x-auth-token', '');
-//     await Navigator.pushNamedAndRemoveUntil(context, AuthScreen.routeName, (route) => false);
-//   } catch (e) {
-//     showSnackBar(context, e.toString());
-//   }
-// }
+  Future<void> logOut(BuildContext context) async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+
+      await sharedPreferences.setString('x-auth-token', '');
+
+      await Navigator.pushNamedAndRemoveUntil(context, AuthScreen.routeName, (route) => false);
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }
