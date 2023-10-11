@@ -8,6 +8,7 @@ import '../../common/custom_textfield.dart';
 import '../../constants/global_variables.dart';
 import '../../constants/utils.dart';
 import '../../providers/user_provider.dart';
+import 'address_service.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key, required this.totalAmount});
@@ -35,11 +36,7 @@ class _AddressScreenState extends State<AddressScreen> {
 
   List<PaymentItem> paymentItems = [];
 
-  //
-  // final AddressServices addressServices = AddressServices();
-  //
-  //
-  //
+  final AddressService addressService = AddressService();
 
   ///
   @override
@@ -71,11 +68,7 @@ class _AddressScreenState extends State<AddressScreen> {
 
   ///
   void onApplePayResult(res) {
-    // if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
-    //   addressServices.saveUserAddress(context: context, address: addressToBeUsed);
-    // }
-
-    // addressServices.placeOrder(
+    // addressService.placeOrder(
     //   context: context,
     //   address: addressToBeUsed,
     //   totalSum: double.parse(widget.totalAmount),
@@ -84,10 +77,7 @@ class _AddressScreenState extends State<AddressScreen> {
 
   ///
   void onGooglePayResult(res) {
-    // if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
-    //   addressServices.saveUserAddress(context: context, address: addressToBeUsed);
-    // }
-    // addressServices.placeOrder(
+    // addressService.placeOrder(
     //   context: context,
     //   address: addressToBeUsed,
     //   totalSum: double.parse(widget.totalAmount),
@@ -114,6 +104,10 @@ class _AddressScreenState extends State<AddressScreen> {
       addressToBeUsed = addressFromProvider;
     } else {
       showSnackBar(context, 'ERROR');
+    }
+
+    if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+      addressService.saveUserAddress(context: context, address: addressToBeUsed);
     }
   }
 
