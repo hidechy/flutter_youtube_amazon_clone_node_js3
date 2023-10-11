@@ -2,7 +2,10 @@
 
 import 'package:flutter/material.dart';
 
+import '../../common/loader.dart';
 import '../../constants/global_variables.dart';
+import '../../models/order.dart';
+import 'account_service.dart';
 import 'single_product.dart';
 
 class Orders extends StatefulWidget {
@@ -13,104 +16,27 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  List list = [
-    'http://toyohide.work/BrainLog/public/UPPHOTO/2023/2023-09-27/20230927_131236144.jpg',
-    'http://toyohide.work/BrainLog/public/UPPHOTO/2023/2023-09-27/20230927_131522177.jpg',
-    'http://toyohide.work/BrainLog/public/UPPHOTO/2023/2023-09-27/20230927_131529638.jpg',
-    'http://toyohide.work/BrainLog/public/UPPHOTO/2023/2023-09-27/20230927_131551309.jpg',
-  ];
+  List<Order> orders = [];
 
-  // List<Order>? orders;
-  // final AccountServices accountServices = AccountServices();
-  //
-  //
+  final AccountService accountService = AccountService();
 
-  //
-  // ///
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchOrders();
-  // }
-  //
-  //
-  //
+  ///
+  @override
+  void initState() {
+    super.initState();
+    fetchOrders();
+  }
 
-  //
-  // ///
-  // void fetchOrders() async {
-  //   orders = await accountServices.fetchMyOrders(context: context);
-  //   setState(() {});
-  // }
-  //
-  //
-  //
+  ///
+  Future<void> fetchOrders() async {
+    orders = await accountService.fetchMyOrders(context: context);
+    setState(() {});
+  }
 
   ///
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: const EdgeInsets.only(
-                left: 15,
-              ),
-              child: const Text(
-                'Your Orders',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(
-                right: 15,
-              ),
-              child: Text(
-                'See all',
-                style: TextStyle(
-                  color: GlobalVariables.selectedNavBarColor,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Container(
-          height: 170,
-          padding: const EdgeInsets.only(
-            left: 10,
-            top: 20,
-          ),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return SingleProduct(image: list[index]);
-
-              // return GestureDetector(
-              //   onTap: () {
-              //     Navigator.pushNamed(
-              //       context,
-              //       OrderDetailScreen.routeName,
-              //       arguments: orders![index],
-              //     );
-              //   },
-              //   child: SingleProduct(
-              //     image: orders![index].products[0].images[0],
-              //   ),
-              // );
-            },
-          ),
-        ),
-      ],
-    );
-
-    /*
-    return orders == null
+    return orders.isEmpty
         ? const Loader()
         : Column(
             children: [
@@ -118,26 +44,17 @@ class _OrdersState extends State<Orders> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(
-                      left: 15,
-                    ),
+                    padding: const EdgeInsets.only(left: 15),
                     child: const Text(
                       'Your Orders',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(
-                      right: 15,
-                    ),
+                    padding: const EdgeInsets.only(right: 15),
                     child: Text(
                       'See all',
-                      style: TextStyle(
-                        color: GlobalVariables.selectedNavBarColor,
-                      ),
+                      style: TextStyle(color: GlobalVariables.selectedNavBarColor),
                     ),
                   ),
                 ],
@@ -145,32 +62,25 @@ class _OrdersState extends State<Orders> {
               // display orders
               Container(
                 height: 170,
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  top: 20,
-                  right: 0,
+                padding: const EdgeInsets.only(left: 10, top: 20),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: orders.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   OrderDetailScreen.routeName,
+                        //   arguments: orders![index],
+                        // );
+                      },
+                      child: SingleProduct(image: orders[index].products[0].images[0]),
+                    );
+                  },
                 ),
-                // child: ListView.builder(
-                //   scrollDirection: Axis.horizontal,
-                //   itemCount: orders!.length,
-                //   itemBuilder: (context, index) {
-                //     return GestureDetector(
-                //       onTap: () {
-                //         Navigator.pushNamed(
-                //           context,
-                //           OrderDetailScreen.routeName,
-                //           arguments: orders![index],
-                //         );
-                //       },
-                //       child: SingleProduct(
-                //         image: orders![index].products[0].images[0],
-                //       ),
-                //     );
-                //   },
-                // ),
               ),
             ],
           );
-    */
   }
 }
