@@ -10,8 +10,10 @@ import 'features/admin/admin_screen.dart';
 import 'features/auth/auth_screen.dart';
 import 'features/home/category_deals_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/order/order_detail_screen.dart';
 import 'features/product_detail/product_detail_screen.dart';
 import 'features/search/search_screen.dart';
+import 'models/order.dart';
 import 'models/product.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -76,6 +78,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => AddressScreen(totalAmount: totalAmount),
+      );
+
+    case OrderDetailScreen.routeName:
+      final order = routeSettings.arguments as Order;
+
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => OrderDetailScreen(order: order),
       );
 
     default:
