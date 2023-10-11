@@ -38,33 +38,42 @@ class AddressService {
   }
 
   ///
-// Future<void> placeOrder({required BuildContext context, required String address, required double totalSum}) async {
-//   final userProvider = Provider.of<UserProvider>(context, listen: false);
-//
-//   try {
-//     final res = await http.post(
-//       Uri.parse('$uri/api/order'),
-//       headers: {
-//         'Content-Type': 'application/json; charset=UTF-8',
-//         'x-auth-token': userProvider.user.token,
-//       },
-//       body: jsonEncode({'cart': userProvider.user.cart, 'address': address, 'totalPrice': totalSum}),
-//     );
-//
-//     httpErrorHandle(
-//       response: res,
-//       context: context,
-//       onSuccess: () {
-//         showSnackBar(context, 'Your order has been placed!');
-//         final user = userProvider.user.copyWith(cart: []);
-//
-//         userProvider.setUserFromModel(user);
-//       },
-//     );
-//   } catch (e) {
-//     showSnackBar(context, e.toString());
-//   }
-// }
+  Future<void> placeOrder({
+    required BuildContext context,
+    required String address,
+    required double totalSum,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      final res = await http.post(
+        Uri.parse('$uri/api/order'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'userId': userProvider.user.id,
+          'cart': userProvider.user.cart,
+          'address': address,
+          'totalPrice': totalSum,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Your order has been placed!');
+
+          final user = userProvider.user.copyWith(cart: []);
+          userProvider.setUserFromModel(user);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 
   ///
 // Future<void> deleteProduct(

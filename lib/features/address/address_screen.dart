@@ -67,22 +67,12 @@ class _AddressScreenState extends State<AddressScreen> {
   }
 
   ///
-  void onApplePayResult(res) {
-    // addressService.placeOrder(
-    //   context: context,
-    //   address: addressToBeUsed,
-    //   totalSum: double.parse(widget.totalAmount),
-    // );
-  }
+  void onApplePayResult(res) =>
+      addressService.placeOrder(context: context, address: addressToBeUsed, totalSum: double.parse(widget.totalAmount));
 
   ///
-  void onGooglePayResult(res) {
-    // addressService.placeOrder(
-    //   context: context,
-    //   address: addressToBeUsed,
-    //   totalSum: double.parse(widget.totalAmount),
-    // );
-  }
+  void onGooglePayResult(res) =>
+      addressService.placeOrder(context: context, address: addressToBeUsed, totalSum: double.parse(widget.totalAmount));
 
   ///
   void setSendingAddress(String addressFromProvider) {
